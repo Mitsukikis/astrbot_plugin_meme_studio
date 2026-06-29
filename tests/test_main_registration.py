@@ -88,9 +88,11 @@ class MainRegistrationTest(unittest.TestCase):
         sys.path.insert(0, str(ROOT))
         self._install_astrbot_stubs()
         sys.modules.pop("main", None)
+        sys.modules.pop("meme_studio.runtime", None)
 
     def tearDown(self):
         sys.modules.pop("main", None)
+        sys.modules.pop("meme_studio.runtime", None)
         if sys.path and sys.path[0] == str(ROOT):
             sys.path.pop(0)
 
@@ -108,13 +110,19 @@ class MainRegistrationTest(unittest.TestCase):
             FakeFilter.EventMessageType.ALL,
         )
 
+    def test_main_uses_runtime_plugin_class(self):
+        import main
+        from meme_studio.runtime import MemeStudioRuntime
+
+        self.assertIs(main.MemeStudioRuntime, MemeStudioRuntime)
+
     def test_builtin_commands_are_registered_as_astrbot_commands(self):
         main = importlib.import_module("main")
 
         self.assertIn("撅", self._registered_command_names(main))
 
     def test_generated_commands_are_registered_as_astrbot_commands(self):
-        meme_commands = importlib.import_module("meme_commands")
+        meme_commands = importlib.import_module("meme_studio.commands")
         old_generated_path = meme_commands.GENERATED_COMMANDS_PATH
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -148,6 +156,7 @@ class MainRegistrationTest(unittest.TestCase):
 
     def test_astrbot_command_handlers_have_unique_registry_entries(self):
         main = importlib.import_module("main")
+        meme_commands = importlib.import_module("meme_studio.commands")
         command_entries = [
             entry
             for entry in FakeFilter.registered_commands.values()
@@ -158,7 +167,7 @@ class MainRegistrationTest(unittest.TestCase):
             for entry in command_entries
             for name in entry["commands"]
         }
-        expected_commands = {command.name for command in main.all_meme_commands()}
+        expected_commands = {command.name for command in meme_commands.all_meme_commands()}
 
         self.assertEqual(command_names, expected_commands)
         self.assertEqual(len(command_entries), len(expected_commands))
@@ -185,7 +194,7 @@ class MainRegistrationTest(unittest.TestCase):
 
     def test_dispatcher_reads_generated_commands_when_matching(self):
         main = importlib.import_module("main")
-        meme_commands = importlib.import_module("meme_commands")
+        meme_commands = importlib.import_module("meme_studio.commands")
         old_generated_path = meme_commands.GENERATED_COMMANDS_PATH
 
         with tempfile.TemporaryDirectory() as tmp:
