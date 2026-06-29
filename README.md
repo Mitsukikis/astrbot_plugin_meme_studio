@@ -177,7 +177,7 @@ python -m compileall -q .
 检查前端脚本语法：
 
 ```bash
-node --check tools/meme_studio/web/app.js
+node --check meme_studio/web/app.js
 ```
 
 生成 AstrBot 上传包：
