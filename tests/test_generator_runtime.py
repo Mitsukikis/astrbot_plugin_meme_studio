@@ -100,9 +100,9 @@ class FakeResult:
 
 
 class FakeEvent:
-    def __init__(self, message_str, sender_id="10001", self_id="20002"):
+    def __init__(self, message_str, sender_id="10001", self_id="20002", message=None):
         self.message_str = message_str
-        self.message_obj = types.SimpleNamespace(message_str=message_str, message=[])
+        self.message_obj = types.SimpleNamespace(message_str=message_str, message=message or [])
         self._sender_id = sender_id
         self._self_id = self_id
 
@@ -281,6 +281,25 @@ class GeneratorRuntimeHandleTest(unittest.IsolatedAsyncioTestCase):
             engine.generated,
             [("pet", [("123", b"avatar-bytes")], ["hello"], {})],
         )
+
+    async def test_explicit_image_loader_error_yields_read_failure_without_generate(self):
+        engine = FakeEngine()
+        runtime = MemeGeneratorRuntime(engine, GeneratorRuntimeConfig())
+
+        async def image_loader(source):
+            self.assertEqual(source, "bad-source")
+            raise FileNotFoundError("bad image")
+
+        results = await collect_async(
+            runtime.handle(
+                FakeEvent("/pet", message=[FakeImage(url="bad-source")]),
+                image_loader=image_loader,
+            )
+        )
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(engine.generated, [])
+        self.assertTrue("图片" in results[0].text or "读取" in results[0].text)
 
 
 class MemeStudioRuntimeDispatchTest(unittest.IsolatedAsyncioTestCase):

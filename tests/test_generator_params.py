@@ -111,6 +111,22 @@ class GeneratorParamsCollectorTest(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(image_calls, ["image://one"])
         self.assertEqual(avatar_calls, [])
 
+    async def test_image_component_loader_error_is_not_swallowed(self):
+        async def image_loader(source):
+            raise FileNotFoundError("bad image")
+
+        async def avatar_loader(qq):
+            return b"avatar"
+
+        with self.assertRaisesRegex(FileNotFoundError, "bad image"):
+            await collect_generator_params(
+                FakeEvent(message=[FakeImage("bad-source")]),
+                GeneratorParams(min_images=1, max_images=1, min_texts=0, max_texts=0, default_texts=[]),
+                command_text="pet",
+                avatar_loader=avatar_loader,
+                image_loader=image_loader,
+            )
+
     async def test_default_texts_fill_shortage_and_clip_to_max_texts(self):
         async def avatar_loader(qq):
             return None

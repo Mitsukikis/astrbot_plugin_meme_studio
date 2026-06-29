@@ -124,6 +124,12 @@ class MemeGeneratorRuntime:
                 avatar_loader=avatar_loader,
                 image_loader=image_loader,
             )
+        except Exception:
+            logger.exception("meme-generator image load failed")
+            yield event.plain_result("图片读取失败，请换一张图再试。")
+            return
+
+        try:
             image_bytes = await asyncio.wait_for(
                 self.engine.generate(keyword, images, texts, options),
                 timeout=self.config.generator_timeout_seconds,

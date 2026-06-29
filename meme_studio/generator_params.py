@@ -50,7 +50,7 @@ async def collect_generator_params(
             return False
 
         seen_avatar_ids.add(qq_text)
-        data = await _call_loader(avatar_loader, qq_text)
+        data = await _call_loader(avatar_loader, qq_text, suppress_errors=True)
         return await add_image(name or qq_text, data)
 
     async def add_source(source: Any) -> bool:
@@ -63,7 +63,7 @@ async def collect_generator_params(
             return False
 
         seen_image_sources.add(source_text)
-        data = await _call_loader(image_loader, source_text)
+        data = await _call_loader(image_loader, source_text, suppress_errors=False)
         return await add_image(source_text, data)
 
     async def collect_token(token: str) -> None:
@@ -153,13 +153,15 @@ async def _collect_component(
             await collect_token(token)
 
 
-async def _call_loader(loader: Loader, value: str) -> Any:
+async def _call_loader(loader: Loader, value: str, suppress_errors: bool = True) -> Any:
     try:
         result = loader(value)
         if inspect.isawaitable(result):
             return await result
         return result
     except Exception:
+        if not suppress_errors:
+            raise
         return None
 
 
