@@ -3,13 +3,20 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from meme_commands import MEME_COMMANDS, build_conf_schema, load_generated_commands
+from meme_studio.commands import MEME_COMMANDS, build_conf_schema, load_generated_commands
 
 
 ROOT = Path(__file__).resolve().parents[1]
 
 
 class MemeCommandRegistryTest(unittest.TestCase):
+    def test_legacy_meme_commands_module_reexports_new_registry(self):
+        import meme_commands
+        from meme_studio import commands
+
+        self.assertIs(meme_commands.MemeCommand, commands.MemeCommand)
+        self.assertEqual(meme_commands.BUILTIN_MEME_COMMANDS, commands.BUILTIN_MEME_COMMANDS)
+
     def test_command_names_are_unique(self):
         names = [command.name for command in MEME_COMMANDS]
 

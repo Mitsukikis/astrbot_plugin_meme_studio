@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from meme_commands import build_conf_schema, load_generated_commands
+from meme_studio.commands import build_conf_schema, load_generated_commands
 
 
 class GeneratedMemeCommandsTest(unittest.TestCase):
