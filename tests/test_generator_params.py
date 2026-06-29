@@ -66,6 +66,25 @@ class GeneratorParamsCollectorTest(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(options, {})
         self.assertEqual(calls, ["123456"])
 
+    async def test_self_at_token_falls_back_to_sender_avatar(self):
+        calls = []
+
+        async def avatar_loader(qq):
+            calls.append(qq)
+            return "avatar-{}".format(qq).encode("ascii")
+
+        images, texts, options = await collect_generator_params(
+            FakeEvent(sender_id="10001", self_id="20002"),
+            GeneratorParams(min_images=1, max_images=1, min_texts=0, max_texts=1, default_texts=[]),
+            command_text="pet @20002",
+            avatar_loader=avatar_loader,
+        )
+
+        self.assertEqual(images, [("sender", b"avatar-10001")])
+        self.assertEqual(texts, [])
+        self.assertEqual(options, {})
+        self.assertEqual(calls, ["10001"])
+
     async def test_image_component_uses_injected_image_loader(self):
         image_calls = []
         avatar_calls = []

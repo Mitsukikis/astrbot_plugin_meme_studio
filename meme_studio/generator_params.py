@@ -74,7 +74,7 @@ async def collect_generator_params(
 
         qq = _at_token_target(token)
         if qq is not None:
-            await add_avatar(qq)
+            await add_avatar(qq, skip_self=True)
             return
 
         texts.append(token)
