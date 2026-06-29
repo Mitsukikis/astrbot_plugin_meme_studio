@@ -1,0 +1,197 @@
+{
+  "泉此方看": {
+    "type": "bool",
+    "description": "开启泉此方看",
+    "default": true
+  },
+  "吸": {
+    "type": "bool",
+    "description": "开启吸",
+    "default": true
+  },
+  "敲": {
+    "type": "bool",
+    "description": "开启敲",
+    "default": true
+  },
+  "墙纸": {
+    "type": "bool",
+    "description": "开启墙纸",
+    "default": true
+  },
+  "抛": {
+    "type": "bool",
+    "description": "开启抛",
+    "default": true
+  },
+  "拍": {
+    "type": "bool",
+    "description": "开启拍",
+    "default": true
+  },
+  "拿捏": {
+    "type": "bool",
+    "description": "开启拿捏",
+    "default": true
+  },
+  "膜拜": {
+    "type": "bool",
+    "description": "开启膜拜",
+    "default": true
+  },
+  "卖掉了": {
+    "type": "bool",
+    "description": "开启卖掉了",
+    "default": true
+  },
+  "啾啾": {
+    "type": "bool",
+    "description": "开启啾啾",
+    "default": true
+  },
+  "紧贴": {
+    "type": "bool",
+    "description": "开启紧贴",
+    "default": true
+  },
+  "胡桃啃": {
+    "type": "bool",
+    "description": "开启胡桃啃",
+    "default": true
+  },
+  "搓": {
+    "type": "bool",
+    "description": "开启搓",
+    "default": true
+  },
+  "锤": {
+    "type": "bool",
+    "description": "开启锤",
+    "default": true
+  },
+  "舔屏": {
+    "type": "bool",
+    "description": "开启舔屏",
+    "default": true
+  },
+  "贴贴": {
+    "type": "bool",
+    "description": "开启贴贴",
+    "default": true
+  },
+  "伽波贴": {
+    "type": "bool",
+    "description": "开启伽波贴",
+    "default": true
+  },
+  "催眠": {
+    "type": "bool",
+    "description": "开启催眠",
+    "default": true
+  },
+  "打拳": {
+    "type": "bool",
+    "description": "开启打拳",
+    "default": true
+  },
+  "可莉吃": {
+    "type": "bool",
+    "description": "开启可莉吃",
+    "default": true
+  },
+  "跳": {
+    "type": "bool",
+    "description": "开启跳",
+    "default": true
+  },
+  "撸": {
+    "type": "bool",
+    "description": "开启撸",
+    "default": true
+  },
+  "双手撸": {
+    "type": "bool",
+    "description": "开启双手撸",
+    "default": true
+  },
+  "单手撸": {
+    "type": "bool",
+    "description": "开启单手撸",
+    "default": true
+  },
+  "射": {
+    "type": "bool",
+    "description": "开启射",
+    "default": true
+  },
+  "垃圾桶": {
+    "type": "bool",
+    "description": "开启垃圾桶",
+    "default": true
+  },
+  "顶": {
+    "type": "bool",
+    "description": "开启顶",
+    "default": true
+  },
+  "科目三": {
+    "type": "bool",
+    "description": "开启科目三",
+    "default": true
+  },
+  "砸": {
+    "type": "bool",
+    "description": "开启砸",
+    "default": true
+  },
+  "摸头": {
+    "type": "bool",
+    "description": "开启摸头",
+    "default": true
+  },
+  "吃": {
+    "type": "bool",
+    "description": "开启吃",
+    "default": true
+  },
+  "草神啃": {
+    "type": "bool",
+    "description": "开启草神啃",
+    "default": true
+  },
+  "抱大腿": {
+    "type": "bool",
+    "description": "开启抱大腿",
+    "default": true
+  },
+  "飞机杯": {
+    "type": "bool",
+    "description": "开启飞机杯",
+    "default": true
+  },
+  "汤姆嘲笑": {
+    "type": "bool",
+    "description": "开启汤姆嘲笑",
+    "default": true
+  },
+  "字符画": {
+    "type": "bool",
+    "description": "开启字符画",
+    "default": true
+  },
+  "抱抱": {
+    "type": "bool",
+    "description": "开启抱抱",
+    "default": true
+  },
+  "白子舔": {
+    "type": "bool",
+    "description": "开启白子舔",
+    "default": true
+  },
+  "撅": {
+    "type": "bool",
+    "description": "开启撅",
+    "default": true
+  }
+}

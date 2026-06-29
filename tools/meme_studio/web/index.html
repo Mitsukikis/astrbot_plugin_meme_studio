@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>表情包模板制造器</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">表情包模板制造器</div>
+    <div id="status" class="status">未载入素材</div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <section class="panel">
+        <h2>模板</h2>
+        <label>指令名<input id="commandName" value="新表情"></label>
+        <label>提示语<input id="message" value="正在生成..."></label>
+        <label>输出
+          <select id="outputType">
+            <option value="gif">GIF</option>
+            <option value="png">PNG</option>
+          </select>
+        </label>
+        <label>头像形状
+          <select id="shape">
+            <option value="circle">圆形</option>
+            <option value="rounded">圆角</option>
+            <option value="rectangle">矩形</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="panel">
+        <h2>素材</h2>
+        <input id="fileInput" type="file" accept="image/png,image/jpeg,image/gif" multiple>
+        <button id="uploadButton">上传</button>
+        <button id="copyButton" disabled>复制到全部帧</button>
+      </section>
+
+      <section class="panel">
+        <h2>旋转</h2>
+        <input id="rotation" type="range" min="-180" max="180" value="0">
+        <div class="number-row"><span id="rotationValue">0</span><span>度</span></div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div id="canvasWrap" class="canvas-wrap">
+        <div class="empty">上传图片或 GIF</div>
+        <img id="frameImage" alt="">
+        <div id="slot" class="slot circle">
+          <div class="sample-avatar"></div>
+          <div class="handle"></div>
+        </div>
+      </div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+
+    <aside class="actions">
+      <section class="panel">
+        <h2>动作</h2>
+        <button id="previewButton" disabled>预览当前</button>
+        <button id="exportButton" disabled>导出本地</button>
+        <button id="applyButton" disabled>应用到机器人</button>
+      </section>
+      <section class="panel">
+        <h2>机器人表情</h2>
+        <button id="newTemplateButton" class="secondary-button">新增表情</button>
+        <button id="refreshTemplatesButton" class="secondary-button">刷新列表</button>
+        <div id="templateList" class="template-list"></div>
+      </section>
+      <section class="panel">
+        <h2>结果</h2>
+        <img id="resultPreview" class="result-preview" alt="">
+        <pre id="resultBox"></pre>
+      </section>
+    </aside>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

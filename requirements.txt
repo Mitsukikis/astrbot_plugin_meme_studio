@@ -1,0 +1,5 @@
+Pillow>=10.0.0,<12.0.0
+httpx>=0.24.0
+numpy>=1.24.0
+opencv-python-headless>=4.8.0
+pil-utils>=0.1.7
