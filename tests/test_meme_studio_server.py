@@ -6,10 +6,16 @@ from pathlib import Path
 from PIL import Image
 
 from meme_commands import BUILTIN_MEME_COMMANDS
-from tools.meme_studio.server import MemeStudioService
+from meme_studio.studio_service import MemeStudioService
 
 
 class MemeStudioServerTest(unittest.TestCase):
+    def test_legacy_server_reexports_new_service(self):
+        from meme_studio.studio_service import MemeStudioService
+        from tools.meme_studio.server import MemeStudioService as LegacyMemeStudioService
+
+        self.assertIs(LegacyMemeStudioService, MemeStudioService)
+
     def test_upload_decomposes_gif_into_project_frames(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
