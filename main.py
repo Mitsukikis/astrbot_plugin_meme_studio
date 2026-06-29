@@ -25,7 +25,7 @@ except ImportError:
     from meme_commands import MemeCommand, all_meme_commands
 
 
-TEMP_ROOT_NAME = "astrbot_plugin_meme_manufacturer"
+TEMP_ROOT_NAME = "astrbot_plugin_meme_studio"
 STALE_JOB_MAX_AGE_SECONDS = 6 * 60 * 60
 SCRIPT_TIMEOUT_SECONDS = 120
 MAX_IMAGE_BYTES = 25 * 1024 * 1024

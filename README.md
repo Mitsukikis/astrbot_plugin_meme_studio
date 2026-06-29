@@ -1,4 +1,4 @@
-# 表情包制造厂
+# Meme Studio 表情工作台
 
 一个面向 AstrBot 的 QQ 头像表情包制作插件。它可以把群友头像、消息图片或自定义素材合成为静态 PNG 与动态 GIF，并提供一个本地浏览器版 Meme Studio，用拖拽的方式制作新模板。
 
@@ -199,7 +199,7 @@ python tools/build_meme_studio_exe.py
 ```json
 {
   "name": "astrbot_plugin_meme_studio",
-  "display_name": "表情包制造厂",
+  "display_name": "Meme Studio 表情工作台",
   "desc": "将 QQ 群友头像快速生成静态或 GIF 表情包，支持本地 Meme Studio 扩展自定义模板。",
   "author": "zhajunyao",
   "repo": "https://github.com/zhajunyao/astrbot_plugin_meme_studio",
