@@ -25,7 +25,7 @@ def main() -> int:
         "--specpath",
         str(ROOT / "build" / "meme_studio"),
         "--add-data",
-        f"{ROOT / 'tools' / 'meme_studio' / 'web'};tools/meme_studio/web",
+        f"{ROOT / 'meme_studio' / 'web'};meme_studio/web",
         str(ROOT / "meme_studio_launcher.py"),
     ]
     result = subprocess.run(command, cwd=str(ROOT))

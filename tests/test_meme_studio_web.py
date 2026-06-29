@@ -14,7 +14,7 @@ class MemeStudioWebTest(unittest.TestCase):
             f"""
             const fs = require("fs");
             const vm = require("vm");
-            const appCode = fs.readFileSync({json.dumps(str(ROOT / "tools" / "meme_studio" / "web" / "app.js"))}, "utf8");
+            const appCode = fs.readFileSync({json.dumps(str(ROOT / "meme_studio" / "web" / "app.js"))}, "utf8");
 
             function makeElement() {{
               return {{
