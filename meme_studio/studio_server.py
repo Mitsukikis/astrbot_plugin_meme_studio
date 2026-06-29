@@ -1,15 +1,14 @@
-import base64
 import json
 import mimetypes
 import uuid
 from http import HTTPStatus
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from urllib.parse import unquote, urlparse
 
 from .renderer import validate_command_name
-from .studio_security import StudioAuthConfig, extract_request_token, token_matches
+from .studio_security import StudioAuthConfig, decode_uploads, extract_request_token, token_matches
 from .studio_service import MemeStudioService
 
 
@@ -60,10 +59,10 @@ def create_server(
             try:
                 payload = self._read_json()
                 if parsed.path == "/api/upload":
-                    self._send_json(service.upload_files(_decode_uploads(payload.get("files", []))))
+                    self._send_json(service.upload_files(decode_uploads(payload.get("files", []))))
                     return
                 if parsed.path == "/api/decompose-gif":
-                    self._send_json(service.upload_files(_decode_uploads([payload["file"]])))
+                    self._send_json(service.upload_files(decode_uploads([payload["file"]], max_files=1)))
                     return
                 if parsed.path == "/api/export":
                     export_dir = service.export_template(str(payload["project_id"]), payload["manifest"])
@@ -161,16 +160,6 @@ def create_server(
             self.wfile.write(data)
 
     return ThreadingHTTPServer((host, port), MemeStudioHandler)
-
-
-def _decode_uploads(files: List[Dict[str, object]]) -> List[Dict[str, object]]:
-    decoded = []
-    for file_info in files:
-        data = str(file_info["data"])
-        if "," in data:
-            data = data.split(",", 1)[1]
-        decoded.append({"name": str(file_info["name"]), "data": base64.b64decode(data)})
-    return decoded
 
 
 def _clip_preview_reason(reason: str, limit: int = 42) -> str:
