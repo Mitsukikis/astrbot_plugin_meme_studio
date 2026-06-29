@@ -21,8 +21,12 @@ from astrbot.api.star import Context, Star
 
 try:
     from .commands import MemeCommand, all_meme_commands
+    from .generator_engine import GeneratorEngine
+    from .generator_runtime import GeneratorRuntimeConfig, MemeGeneratorRuntime
 except ImportError:
     from meme_studio.commands import MemeCommand, all_meme_commands
+    from meme_studio.generator_engine import GeneratorEngine
+    from meme_studio.generator_runtime import GeneratorRuntimeConfig, MemeGeneratorRuntime
 
 
 TEMP_ROOT_NAME = "astrbot_plugin_meme_studio"
@@ -55,6 +59,11 @@ class MemeStudioRuntime(Star):
         self.temp_root = Path(tempfile.gettempdir()) / TEMP_ROOT_NAME
         self.temp_root.mkdir(parents=True, exist_ok=True)
         self._cleanup_stale_jobs()
+        self.generator_runtime = MemeGeneratorRuntime(
+            GeneratorEngine(),
+            GeneratorRuntimeConfig.from_mapping(self.config),
+            qq_avatar_source=self._qq_avatar_source,
+        )
 
     def _cleanup_stale_jobs(self) -> None:
         now = time.time()
@@ -115,6 +124,15 @@ class MemeStudioRuntime(Star):
             return
 
         raise FileNotFoundError("无法读取图片源")
+
+    async def _read_image_source_bytes(self, source: str) -> bytes:
+        job_dir = self._make_job_dir("generator_source")
+        source_path = job_dir / "source.image"
+        try:
+            await self._save_image_source(source, source_path)
+            return source_path.read_bytes()
+        finally:
+            self._remove_path(job_dir)
 
     async def _download_image(self, url: str, destination: Path) -> None:
         self._validate_remote_image_url(url)
@@ -288,10 +306,12 @@ class MemeStudioRuntime(Star):
     @filter.event_message_type(filter.EventMessageType.ALL)
     async def on_message(self, event: AstrMessageEvent):
         command = self._match_command(event)
-        if command is None:
+        if command is not None:
+            async for result in self._handle(event, command):
+                yield result
             return
 
-        async for result in self._handle(event, command):
+        async for result in self.generator_runtime.handle(event, self._read_image_source_bytes):
             yield result
 
     async def _handle(self, event: AstrMessageEvent, command: MemeCommand):
