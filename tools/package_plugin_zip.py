@@ -25,6 +25,7 @@ EXCLUDE_FILES = {
 EXCLUDE_SUFFIXES = {
     ".pyc",
     ".pyo",
+    ".spec",
 }
 
 
