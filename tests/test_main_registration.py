@@ -192,6 +192,31 @@ class MainRegistrationTest(unittest.TestCase):
 
         self.assertEqual(plugin._match_command(event).name, "砸")
 
+    def test_dispatcher_ignores_plain_local_keyword_by_default(self):
+        main = importlib.import_module("main")
+        plugin = main.MemeArsenal(FakeContext(), {})
+        event = types.SimpleNamespace(
+            message_str="砸 @someone",
+            message_obj=types.SimpleNamespace(message_str="砸 @someone", message=[]),
+        )
+
+        self.assertIsNone(plugin._match_command(event))
+
+    def test_dispatcher_matches_plain_local_keyword_when_prefix_disabled(self):
+        main = importlib.import_module("main")
+        plugin = main.MemeArsenal(FakeContext(), {"local_need_prefix": False})
+        plain_event = types.SimpleNamespace(
+            message_str="砸 @someone",
+            message_obj=types.SimpleNamespace(message_str="砸 @someone", message=[]),
+        )
+        slash_event = types.SimpleNamespace(
+            message_str="/砸 @someone",
+            message_obj=types.SimpleNamespace(message_str="/砸 @someone", message=[]),
+        )
+
+        self.assertEqual(plugin._match_command(plain_event).name, "砸")
+        self.assertEqual(plugin._match_command(slash_event).name, "砸")
+
     def test_dispatcher_reads_generated_commands_when_matching(self):
         main = importlib.import_module("main")
         meme_commands = importlib.import_module("meme_studio.commands")

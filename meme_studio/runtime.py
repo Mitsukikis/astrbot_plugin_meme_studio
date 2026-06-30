@@ -284,10 +284,15 @@ class MemeStudioRuntime(Star):
             "",
         )
         message_text = message_text.strip()
-        if not message_text or message_text[0] not in {"/", "／"}:
+        if not message_text:
             return None
 
-        message_body = message_text[1:].lstrip()
+        local_need_prefix = _bool_config(self.config.get("local_need_prefix"), True)
+        has_prefix = message_text[0] in {"/", "／"}
+        if local_need_prefix and not has_prefix:
+            return None
+
+        message_body = message_text[1:].lstrip() if has_prefix else message_text
         if not message_body:
             return None
 
@@ -382,6 +387,20 @@ class MemeStudioRuntime(Star):
 
 class MemeArsenal(MemeStudioRuntime):
     pass
+
+
+def _bool_config(value: object, default: bool) -> bool:
+    if value is None:
+        return default
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        normalized = value.strip().lower()
+        if normalized in {"1", "true", "yes", "on", "enable", "enabled", "开启"}:
+            return True
+        if normalized in {"0", "false", "no", "off", "disable", "disabled", "关闭"}:
+            return False
+    return bool(value)
 
 
 def _make_astrbot_command_handler(command_name: str, index: int):

@@ -86,6 +86,14 @@ pip install -r requirements.txt
 
 完整开关可以在 AstrBot 插件配置面板查看。
 
+如果希望内置模板和 Meme Studio 新增模板不需要 `/` 前缀，直接发送关键词触发，可以在配置面板关闭：
+
+```text
+local_need_prefix=false
+```
+
+关闭后，`摸头 @某人` 和 `/摸头 @某人` 都可以触发本地模板；默认值仍为 `true`，用于减少群聊误触发。
+
 ## meme-generator 大表情库引擎
 
 插件保留本地内置模板和 Meme Studio 生成模板作为第一优先级：当本地模板和 generator 关键词重名时，优先执行本地/Studio 模板。`meme-generator` 是额外接入的可选大表情库引擎，用来补充更多关键词表情。
@@ -98,7 +106,7 @@ pip install -r requirements.txt
 /<关键词> @用户 文本 key=value
 ```
 
-默认需要 `/` 或全角 `／` 前缀，也可以通过唤醒/提及机器人触发。管理员可在配置面板调整 `generator_need_prefix`、`generator_extra_prefix`、`generator_fuzzy_match`、`generator_timeout_seconds`、`generator_compress_static` 和 `generator_disabled_list`。
+默认需要 `/` 或全角 `／` 前缀，也可以通过唤醒/提及机器人触发。管理员可在配置面板调整 `local_need_prefix`、`generator_need_prefix`、`generator_extra_prefix`、`generator_fuzzy_match`、`generator_timeout_seconds`、`generator_compress_static` 和 `generator_disabled_list`。
 
 如果服务器不希望启用 generator，或运行环境无法安装/加载它的依赖与资源，可以在插件配置中设置：
 

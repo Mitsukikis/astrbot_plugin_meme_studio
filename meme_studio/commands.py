@@ -147,6 +147,12 @@ MEME_COMMANDS = all_meme_commands()
 MEME_COMMANDS_BY_NAME = {command.name: command for command in MEME_COMMANDS}
 
 GENERATOR_CONF_SCHEMA: Dict[str, Dict[str, object]] = {
+    "local_need_prefix": {
+        "type": "bool",
+        "description": "本地模板需要触发前缀",
+        "hint": "开启后本地和 Meme Studio 模板需要 / 或全角 ／ 触发；关闭后可直接发送模板关键词触发。",
+        "default": True,
+    },
     "generator_enabled": {
         "type": "bool",
         "description": "启用 meme-generator 大表情库引擎",
