@@ -1,10 +1,10 @@
 name: "astrbot_plugin_meme_studio"
 display_name: "Meme Studio 表情工作台"
-author: "zhajunyao"
-version: "2.1.0"
+author: "Mitsukikis"
+version: "2.1.1"
 short_desc: "QQ 头像表情包生成与服务器模板工作台。"
 desc: "支持群聊头像表情生成、本地/服务器浏览器模板制作、GIF 分解、模板预览、应用与删除。"
 astrbot_version: ">=4.12.0"
-repo: "https://github.com/zhajunyao/astrbot_plugin_meme_studio"
+repo: "https://github.com/Mitsukikis/astrbot_plugin_meme_studio"
 support_platforms:
   - aiocqhttp

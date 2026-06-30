@@ -34,7 +34,7 @@ python tools/package_plugin_zip.py
 
 ```bash
 cd /AstrBot/data/plugins
-git clone https://github.com/zhajunyao/astrbot_plugin_meme_studio.git
+git clone https://github.com/Mitsukikis/astrbot_plugin_meme_studio.git
 ```
 
 然后重启 AstrBot。
@@ -267,10 +267,10 @@ python tools/build_meme_studio_exe.py
   "name": "astrbot_plugin_meme_studio",
   "display_name": "Meme Studio 表情工作台",
   "desc": "QQ 头像表情包生成与服务器模板工作台，支持 GIF 分解、模板预览、应用与删除。",
-  "author": "zhajunyao",
-  "repo": "https://github.com/zhajunyao/astrbot_plugin_meme_studio",
+  "author": "Mitsukikis",
+  "repo": "https://github.com/Mitsukikis/astrbot_plugin_meme_studio",
   "tags": ["娱乐", "表情包", "图片"],
-  "social_link": "https://github.com/zhajunyao"
+  "social_link": "https://github.com/Mitsukikis"
 }
 ```
 
